@@ -1,0 +1,15 @@
+<html>
+
+    <head>
+
+        <title>Page de Potin</title>
+
+    </head>
+
+    <body>
+        <p>Voici le potin N°: <%= params[:id].to_i + 1 %></p>
+        <p>Son auteur : <%= @gossip[0]["author"] %> </p>
+        <p>Le contenu du potin : <%= @gossip[0]["content"] %> </p>
+    </body>
+    
+</html>
