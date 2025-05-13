@@ -63,4 +63,29 @@ class Gossip
         return gossip
     end
 
+    # Méthode pour mettre à jour un potin existant
+    def self.update(id, author, content)
+        # Lire tous les potins
+        gossips = []
+        CSV.foreach("./db/gossip.csv", headers: true) do |csv|
+            gossips << csv.to_h
+        end
+        
+        # Mettre à jour le potin spécifique
+        gossips[id.to_i]["author"] = author
+        gossips[id.to_i]["content"] = content
+        gossips[id.to_i]["date_last_update"] = Time.now.to_s
+        
+        # Réécrire le fichier CSV avec les données mises à jour
+        CSV.open("./db/gossip.csv", "w") do |csv|
+            # Écrire les en-têtes
+            csv << ["author", "content", "date_last_update"]
+            
+            # Écrire toutes les lignes
+            gossips.each do |gossip|
+                csv << [gossip["author"], gossip["content"], gossip["date_last_update"]]
+            end
+        end
+    end
+
 end

@@ -1,15 +1,59 @@
 <html>
 
     <head>
-
         <title>Page de Potin</title>
-
+        <style>
+            .comment {
+                margin: 10px 0;
+                padding: 10px;
+                background-color: #f5f5f5;
+                border-radius: 5px;
+            }
+            .comment-form {
+                margin-top: 20px;
+                padding: 15px;
+                background-color: #f9f9f9;
+                border-radius: 5px;
+            }
+            .comment-form textarea {
+                width: 100%;
+                min-height: 80px;
+                margin-bottom: 10px;
+            }
+        </style>
     </head>
 
     <body>
-        <p>Voici le potin N°: <%= params[:id].to_i + 1 %></p>
-        <p>Son auteur : <%= @gossip[0]["author"] %> </p>
-        <p>Le contenu du potin : <%= @gossip[0]["content"] %> </p>
+        <h1>Potin N°: <%= params[:id].to_i + 1 %></h1>
+        <p><strong>Auteur :</strong> <%= @gossip[0]["author"] %> </p>
+        <p><strong>Contenu :</strong> <%= @gossip[0]["content"] %> </p>
+        <p>
+            <a href="/gossips/<%= params[:id] %>/edit/">Éditer le potin</a> | 
+            <a href="/">Revenir à l'accueil</a>
+        </p>
+
+        <hr>
+
+        <h2>Commentaires (<%= @comments.length %>)</h2>
+        
+        <% if @comments.empty? %>
+            <p>Aucun commentaire pour l'instant. Soyez le premier à commenter !</p>
+        <% else %>
+            <% @comments.each do |comment| %>
+                <div class="comment">
+                    <p><%= comment["content"] %></p>
+                    <small>Posté le <%= comment["date_created"] %></small>
+                </div>
+            <% end %>
+        <% end %>
+
+        <div class="comment-form">
+            <h3>Ajouter un commentaire</h3>
+            <form action='/gossips/<%= params[:id] %>/comment/' method='POST'>
+                <textarea name='comment_content' placeholder="Écrivez votre commentaire ici..."></textarea><br/>
+                <input type='submit' value='Commenter'/>
+            </form>
+        </div>
     </body>
     
 </html>

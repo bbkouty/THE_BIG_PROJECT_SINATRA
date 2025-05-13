@@ -9,13 +9,14 @@
     <body>
 
       <h1>Mon super site de gossip, depuis le dossier views !</h1>
-
+      <p>Cliquez <a href="/gossips/new/">ici</a> pour ajouter un nouveau potin</p>
       <% gossips.each_with_index do |gossip, index| %>
-        <p>
+        <p> Auteur:
         <%= gossip["author"] %><br/>
+        Potin:
         <%= gossip["content"] %>
         </p>
-        <a href = "/gossips/<%= index %>">Show</a>
+        <a href = "/gossips/<%= index %>">Voir</a>
       <% end %>
 
     </body>

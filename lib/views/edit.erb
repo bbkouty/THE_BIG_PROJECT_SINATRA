@@ -1,0 +1,18 @@
+<html>
+    <head>
+      <title>Éditer un potin</title>
+    </head>
+
+    <body>
+      <h1>Édite ton potin !</h1>
+      <p>Modifie ton potin via le formulaire ci-dessous</p>
+
+      <form action='/gossips/<%= params[:id] %>/edit/' method='POST'>
+        Saisi ici ton nom :  <input type='text' name='gossip_author' value="<%= @gossip[0]['author'] %>"/><br/>
+        Balance ton potin : <input type='text' name='gossip_content' value="<%= @gossip[0]['content'] %>"/><br/>
+        <input type='submit' value='Mettre à jour'/>
+      </form>
+
+      <a href="/gossips/<%= params[:id] %>">Annuler</a>
+    </body>
+</html>
